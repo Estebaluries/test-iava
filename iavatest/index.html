@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iava.me - Servicios de Mensajería y Transporte Especializado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables CSS */
+        :root {
+            --sky-blue: #87CEEB;
+            --deep-blue: #1E3A8A;
+            --cloud-white: #FFFFFF;
+            --text-primary: #333333;
+            --accent-green: #25D366;
+            --accent-yellow: #FFD700;
+            --accent-red: #FF6B6B;
+        }
+
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .sky-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--deep-blue) 100%);
+            animation: skyShift 20s ease-in-out infinite alternate;
+        }
+
+        .clouds-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" opacity="0.7"><path fill="white" d="M300,200 Q400,100 500,200 T700,200 Q800,100 900,200 T1100,200 L1100,800 L100,800 L100,200 Q200,100 300,200 Z"/></svg>');
+            background-size: contain;
+            opacity: 0.7;
+            animation: cloudMove 60s linear infinite;
+        }
+
+        .motion-elements::before {
+            content: "✈";
+            position: absolute;
+            font-size: 120px;
+            top: 20%;
+            left: -200px;
+            opacity: 0.3;
+            animation: planeFly 25s linear infinite;
+        }
+
+        .motion-elements::after {
+            content: "🚗";
+            position: absolute;
+            font-size: 80px;
+            bottom: 30%;
+            right: -150px;
+            opacity: 0.2;
+            animation: carDrive 30s linear infinite;
+        }
+
+        /* Animaciones */
+        @keyframes skyShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes planeFly {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            50% { transform: translateX(100vw) translateY(-20px) rotate(5deg); }
+            100% { transform: translateX(200vw) translateY(0) rotate(0deg); }
+        }
+
+        @keyframes carDrive {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-200vw) translateY(-20px); }
+        }
+
+        /* Header y navegación */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-green);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--deep-blue);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            background: rgba(30, 58, 138, 0.7);
+            padding: 3rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-green);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            background: #1da851;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Sección de servicios */
+        .services {
+            padding: 5rem 5%;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--deep-blue);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--deep-blue);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--deep-blue);
+        }
+
+        .service-card p {
+            color: #666;
+        }
+
+        /* Sección de cómo funciona */
+        .how-it-works {
+            padding: 5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            text-align: center;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            margin: 1rem;
+            padding: 2rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--deep-blue);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Sección de contacto */
+        .contact {
+            padding: 5rem 5%;
+            background: rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--deep-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-blue);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                background: white;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .motion-elements::before,
+            .motion-elements::after {
+                display: none;
+            }
+
+            .clouds-layer {
+                animation-duration: 120s;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo animado -->
+    <div class="background-container">
+        <div class="sky-gradient"></div>
+        <div class="clouds-layer"></div>
+        <div class="motion-elements"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-paper-plane"></i>
+                iava.me
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#como-funciona">Cómo Funciona</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Tu Socio de Confianza en Mensajería y Transporte</h1>
+            <p>Ofrecemos soluciones de transporte y entrega especializadas para todas tus necesidades. Rápido, confiable y profesional.</p>
+            <a href="https://wa.me/1234567890?text=Hola,%20me%20interesan%20sus%20servicios" class="cta-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section class="services" id="servicios">
+        <div class="section-title">
+            <h2>Nuestros Servicios</h2>
+            <p>Ofrecemos una amplia gama de servicios de transporte y mensajería para satisfacer todas tus necesidades</p>
+        </div>
+        <div class="services-grid">
+            <!-- Servicios listados -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-flower"></i>
+                </div>
+                <h3>Entrega de Flores</h3>
+                <p>Entregamos tus arreglos florales con cuidado y puntualidad para ocasiones especiales.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h3>Entrega de Imprenta</h3>
+                <p>Distribución de material impreso, folletos, catálogos y más.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <h3>Transporte de Pacientes</h3>
+                <p>Transporte seguro para pacientes que necesitan acudir a terapias físicas.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-hotel"></i>
+                </div>
+                <h3>Transporte de Huéspedes</h3>
+                <p>Servicio de transporte para huéspedes de casas de huéspedes y hoteles.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-passport"></i>
+                </div>
+                <h3>Transporte a Consulados</h3>
+                <p>Llegamos puntualmente a tus citas en consulados y embajadas.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>Mensajería a Notarías</h3>
+                <p>Entrega segura de documentos importantes a notarías públicas.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Reparación de Neumáticos</h3>
+                <p>Servicio a domicilio para reparación y cambio de neumáticos.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <h3>Transporte de Vehículos</h3>
+                <p>Trasladamos tu vehículo a talleres para reparación o mantenimiento.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Entrega de Refacciones</h3>
+                <p>Distribución de partes y refacciones para automóviles y maquinaria.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bread-slice"></i>
+                </div>
+                <h3>Reparto de Tortillerías</h3>
+                <p>Servicio de reparto para tortillerías y panaderías.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-wheelchair"></i>
+                </div>
+                <h3>Transporte Geriátrico</h3>
+                <p>Transporte especializado para residentes de centros geriátricos.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-school"></i>
+                </div>
+                <h3>Transporte Escolar</h3>
+                <p>Servicio seguro y confiable para transporte a instituciones educativas.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-glass-cheers"></i>
+                </div>
+                <h3>Transporte a Eventos</h3>
+                <p>Servicio especial para eventos especiales, bodas, fiestas y más.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="section-title">
+            <h2>¿Cómo Funciona?</h2>
+            <p>Nuestro proceso es simple y eficiente</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Solicita el Servicio</h3>
+                <p>Contáctanos por teléfono, WhatsApp o nuestro formulario en línea.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Programamos la Entrega</h3>
+                <p>Coordinamos fecha, hora y detalles específicos de tu servicio.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Realizamos el Servicio</h3>
+                <p>Nuestro equipo ejecuta el servicio con profesionalismo y cuidado.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Confirmación de Entrega</h3>
+                <p>Te notificamos cuando el servicio ha sido completado exitosamente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact" id="contacto">
+        <div class="section-title">
+            <h2>Contáctanos</h2>
+            <p>Estamos disponibles para atenderte</p>
+        </div>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div>
+                    <h3>WhatsApp</h3>
+                    <p>+1 234 567 890</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                    <h3>Teléfono</h3>
+                    <p>+1 234 567 891</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <h3>Email</h3>
+                    <p>info@iava.me</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">iava.me</div>
+            <p>Tu socio confiable en servicios de mensajería y transporte especializado</p>
+            <div class="footer-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#como-funciona">Cómo Funciona</a>
+                <a href="#contacto">Contacto</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Términos de Servicio</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 iava.me. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+
+        // Animación de scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
